@@ -20,3 +20,23 @@ paso1()
     .catch((error) => {
         console.log('Error en la cadena de promesas: ', error)
     })
+
+
+
+// Refactorizando Async Callbacks a Promises
+
+
+function leerDatosAPI(callback)
+{
+    console.log('Consultando datos con la API...')
+    setTimeout(() => {
+        const datos = {name: 'Juan', age: 30}
+        callback(datos)
+    }, 3000);
+}
+leerDatosAPI(
+    // Todo esto es el callback
+    (datos) => {
+        console.log('Estos son los datos:', datos)
+    }
+)
