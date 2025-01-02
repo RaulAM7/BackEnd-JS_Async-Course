@@ -19,3 +19,25 @@
         - .finally() -> siempre se ejecuta, después del then o como el catch
 */
 
+// Ejemplo de promesa
+// Definiendo la promesa
+const promesa = new Promise((resolve, reject) => {
+    const exito = false
+
+    if (exito)
+    {
+        resolve('Promesa resulta con exito')
+    }
+    else
+    {
+        reject('Promesa resulta con fracaso')
+    }
+}
+)
+
+// Consumiendo la promesa
+promesa
+    .then((a) => {console.log(a)}) // a = 'Promesa resulta con exito'
+    .catch((e) => {console.log(e)}) // b = 'Promesa resulta con fracaso'
+    .finally(() => {console.log('Esto siempre se ejecuta')})
+
