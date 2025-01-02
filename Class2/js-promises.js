@@ -41,3 +41,6 @@ promesa
     .catch((e) => {console.log(e)}) // b = 'Promesa resulta con fracaso'
     .finally(() => {console.log('Esto siempre se ejecuta')})
 
+
+
+
