@@ -1,0 +1,1 @@
+// Ejemplo real de uso de promesas simulando un caso real
