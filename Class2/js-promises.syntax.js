@@ -19,12 +19,23 @@ const miPromesa = new Promise((resolve, reject) => {
     }
 })
 
-
 // 2.- CONSUMO DE PROMESAS (llamada a la funcion asincronica conformada en forma de promesa)
 
-miPromesa
-    .then((a) => {console.log('Exito: ', a)})
-    .catch((b) => {console.log('Error: ', b)})
+function consumirMiPromesa() {
+    miPromesa
+        .then((a) => {console.log('Exito: ', a)})
+        .catch((b) => {console.log('Error: ', b)})
+}
 
+// 3.- CREAR PROMESAS Resultas o Rechazadas directamente
 
+const promesaResuelta = Promise.resolve('Promesa resuelta por defecto')
 
+function consumirPromesaResuelta(){
+    promesaResuelta
+        .then((a) => {console.log('Exito: ', a)})
+        .catch((b) => {console.log('Error: ', b)})
+}
+// consumirPromesaResuelta()
+
+        
