@@ -56,4 +56,35 @@ function consumirPromesasResuletasChained() {
 }
 // consumirPromesasResuletasChained()
 
-// 5.- MANEJO DE ERRORES 
+// 5.- OPERACIONES CONCURRENTES CON Promise.all y Promise.race
+const paso11 = () => Promise.resolve('Promesa resuleta por defecto 11')
+const paso22 = () => Promise.resolve('Promesa resuleta por defecto 22')
+
+function consumirAllPromesas11y22() {
+    Promise.all([paso11(), paso22()])
+        .then((resultados) => {
+            console.log('Todas las operaciones completadas', resultados)
+        })
+        .catch((error) => {
+            console.log('Alguna operación falló: ' , error)
+        })
+}
+//consumirAllPromesas11y22()
+
+const paso111 = () => new Promise((resolve) => {
+    setTimeout(() => {
+        resolve('Promesa resuelta por defecto111')
+    }, 5000) 
+})
+const paso222 = () => new Promise((resolve) => {
+    setTimeout(() => {
+        resolve('Promesa resuelta por defecto222')
+    }, 2000) 
+})
+
+function consumirPrimeraDe111y222() {
+    Promise.race([paso111(), paso222()])
+        .then((resultado) => { console.log('La primera promesa en resolverse es: ', resultado) } )
+        .catch((error) => { console.log('Hubo algún error: ', error)})
+}
+consumirPrimeraDe111y222()
