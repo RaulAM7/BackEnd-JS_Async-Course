@@ -45,3 +45,22 @@ function getPosts(id) {
         }, 2000);
     })
 }
+
+async function obtenerUserYPosts(id) {
+    console.log('Inicio de procesos de ejecución')
+    
+    try {
+        const user = await getUser(id)
+        console.log('Este es el user:')
+        console.log(user)
+
+        const posts = await getPosts(id)
+        console.log('Estos son los posts del user:')
+        console.log(posts)
+
+    } catch(error) {
+        console.log('Error: ', error)
+    }
+    return console.log('Fin de procesos de ejecución')
+}
+// obtenerUserYPosts(0)
