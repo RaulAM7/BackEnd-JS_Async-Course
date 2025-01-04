@@ -1,29 +1,46 @@
 // Casos de uso para Async Wait básicos en node
 
-// Modulo fs para manejar archivos
-
-const fs = require('fs').promises
 const axios = require('axios')
 
 
-async function readFile() {
-    try {
-        const data = await fs.readFile(__dirname + '/archivo.txt', 'utf-8')
-        console.log('El contenido del archivo es: ', data)
-    } catch(error) {
-        console.log('Error al leer el archivo, ', error)
-    }
-}
-// readFile()
+
+
+
 
 async function getPokeData(name) {
     try {
-        const pokeData = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+        // AXIOS CONFIG - Add timeout and retry configuration
+        const axiosConfig = {
+            timeout: 5000, 
+            retry: 3,
+            retryDelay: 1000
+        }
+        // RETRIEVE DATA FROM API
+        const pokeData = await axios.get(
+            `https://pokeapi.co/api/v2/pokemon/${name}`,
+            axiosConfig
+        )
+        // TRANSFORM DATA RETRIEVED
         console.log(`Los datos del pokemon ${name}, son: `)
-        console.log(pokeData)
+        console.log({
+            name: pokeData.data.name,
+            id: pokeData.data.id,
+            types: pokeData.data.types,
+            abilities: pokeData.data.abilities
+        })
+        return pokeData
     } catch(error) {
-        console.log('Error al getear datos de Pokemon: ', error)
-    }
+        if (error.code === 'ETIMEDOUT') {
+            console.error('Request timed out. Please check your internet connection.');
+        } else if (error.code === 'ENETUNREACH') {
+            console.error('Network is unreachable. Please check your internet connection.');
+        } else if (error.response) {
+            console.error(`API Error: ${error.response.status} - ${error.response.statusText}`);
+        } else {
+            console.error('Error fetching Pokemon data:', error.message);
+        }
+        throw error; // Re-throw to allow handling by caller if needed
+    }    
 }
 
 getPokeData('ditto')
