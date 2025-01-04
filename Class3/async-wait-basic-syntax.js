@@ -16,12 +16,36 @@
 
 // Ejemplo con promesas tradicionales
 
-function promesa() {
+function obtenerDatos() {
     return new Promise((resolve, reject) => {
-        resolve()
-        reject()
+        
+        setTimeout(() => {
+            resolve('Datos obtenidos')
+        }, 2000);
     })
 }
-promesa.then((a) => a).catch((error) => error)
+//obtenerDatos()
+    .then((datos) => {
+        console.log(datos)
+        return "Proceso completado"
+    })
+    .then((mensaje) => {
+        console.log(mensaje)
+    })
+    .catch((error) => {
+        console.log('Error:', error)
+    })
 
 
+async function ejecutarProceso() {
+    try {
+        const datos = await obtenerDatos()
+        console.log(datos)
+
+        const mensaje = 'Proceso completado'
+        console.log(mensaje)
+    } catch (error) {
+        console.log('Error:', error) 
+    }
+}
+// ejecutarProceso()
