@@ -53,3 +53,25 @@ function getUser(id){
     .catch((error) => console.log(error))
 }
 getUser(1)
+
+/* Ejercicio 3: Simulación de un sistema de autenticación
+Crea una función autenticarUsuario que tome un nombre de usuario y contraseña, y devuelva una promesa que:
+
+Resuelva si las credenciales son correctas (por ejemplo, usuario: admin, contraseña: 1234).
+Rechace si las credenciales son incorrectas.
+*/
+
+function promiseAuth(name, password) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            let auth = false
+            name === 'admin' && password === 1234 ? resolve(auth=true) : reject(auth)
+        }, 2000);
+    })
+}
+function authentication(name, password){
+    promiseAuth(name, password)
+        .then(() => console.log('Usuario registrado con éxito'))
+        .catch((error) => console.log('AUTH ERROR: ', error))
+}
+authentication('admin', 1224)
