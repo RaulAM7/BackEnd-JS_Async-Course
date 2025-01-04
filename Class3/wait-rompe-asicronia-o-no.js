@@ -25,6 +25,7 @@ function tareaLarga() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve('Tarea completada')
+            reject('Error')
         }, 3000);
     })
 }
@@ -32,9 +33,13 @@ console.log('Antes de ejecución 1')
 
 async function ejecutar() {
     console.log('Inicio de ejecución')
-    const resultado = await tareaLarga()
-    console.log(`Este es el resultado de la Tarea Larga: ${resultado}`)
-    console.log('Fin de ejecución')
+    try {
+        const resultado = await tareaLarga()
+        console.log(`Este es el resultado de la Tarea Larga: ${resultado}`)
+        console.log('Fin de ejecución')
+    } catch (error) {
+        console.log('Este es el error: ', error)
+    }
 }
 
 console.log('Antes de ejecución 2')
