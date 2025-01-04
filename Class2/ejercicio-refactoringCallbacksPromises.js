@@ -50,3 +50,5 @@ function getOneUser(id){
         })
         .catch()
 }
+
+getOneUser(2)
