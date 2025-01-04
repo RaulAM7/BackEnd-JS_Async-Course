@@ -60,7 +60,6 @@ Crea una función autenticarUsuario que tome un nombre de usuario y contraseña,
 Resuelva si las credenciales son correctas (por ejemplo, usuario: admin, contraseña: 1234).
 Rechace si las credenciales son incorrectas.
 */
-
 function promiseAuth(name, password) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -75,3 +74,45 @@ function authentication(name, password){
         .catch((error) => console.log('AUTH ERROR: ', error))
 }
 authentication('admin', 1224)
+
+/* Ejercicio 4: refactorizando Callbackas a Promesas
+*/
+
+function leerArchivo(callback) {
+    console.log("Leyendo archivo...");
+    setTimeout(() => {
+      callback(null, "Contenido del archivo");
+    }, 2000);
+}
+  
+leerArchivo((error, contenido) => {
+    if (error) {
+      console.error("Error al leer el archivo:", error);
+    } else {
+      console.log("Archivo leído con éxito:", contenido);
+    }
+});
+
+function promiseReadFile(content) {
+    return new Promise((resolve, reject) => {
+    console.log("Leyendo archivo...");
+        setTimeout(() => {
+            content ? resolve(content) : reject('Error leyendo el archivo')
+        }, 2000);
+    })
+}
+
+function readFile(content) {
+    promiseReadFile(content)
+        .then((content) => console.log("Archivo leído con éxito:", content))
+        .catch((error) => console.error("Error al leer el archivo:", error))
+}
+readFile('CONTENIDO DE PRUEBA')
+
+
+/* Ejercicio 5: Manejo de errores en cadenas de promesas
+Simula un flujo de pasos donde:
+
+Cada paso es una promesa que puede fallar.
+Si algún paso falla, el flujo debe detenerse y manejar el error.
+*/
