@@ -45,6 +45,19 @@ const baseDeDAtos = {
     }
 }
 
+// Funcion asincronica para obtener todos los usuarios
+async function getAllUsers() {
+    return new Promise((resolve, reject) => {
+        console.log('Iniciando tarea all users retrieving')
+        
+        setTimeout(() => {
+            const allUsers = baseDeDAtos.usuarios
+            allUsers ? resolve(allUsers) : reject('Error all user retrieving')  
+        }, 3000);
+    })
+}
+
+
 // Funcion asincronica para obtener un user en funcion de la id
 async function getUser(id) {
     return new Promise((resolve, reject) => {
@@ -57,6 +70,9 @@ async function getUser(id) {
     })
 }
 
+
+
+// 
 
 
 
