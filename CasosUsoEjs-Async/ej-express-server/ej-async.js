@@ -45,6 +45,14 @@ const baseDeDAtos = {
             {id: 3, content: 'Tercer post'},
             {id: 4, content: 'Cuarto post'}
         ],
+        3: [
+            {id: 3, content: 'Tercer post'},
+            {id: 4, content: 'Cuarto post'}
+        ],
+        4: [
+            {id: 3, content: 'Tercer post'},
+            {id: 4, content: 'Cuarto post'}
+        ],                
     }
 }
 
@@ -81,7 +89,6 @@ async function getOneUser(id) {
 
 
 // RUTA "/info" para mostrar informacion del servidor
-
 app.get("/info", (req, res) => {
     res.status(200).json(({
         mensaje: 'Servidor Express funcionando correctamente',
@@ -106,6 +113,27 @@ app.get("/usuarios/:id", async (req, res) => {
         res.status(200).json(users)
     } catch(error) {
         res.status(500).json({error: `Error encontrando usuarios: ${error}`})
+    }
+})
+
+
+
+// RUTA AD HOC - Para practicar un Promise.All y luego un paso dependiente posterior al Pomise ALL
+// Tenemos 4 users pues pedimos 2 con un Promise.All y luego otros dos pasos dependientes 
+// Ruta tipo adHoc?PrimeraId=1&SegundaId=2&TerceraId=3&CuartaId=4
+app.get("/adhoc", (req, res) => {
+    try{
+        const {PrimeraId, SegundaId, TerceraId, CuartaId } = req.query
+        const peticiones = [PrimeraId, SegundaId]
+        const primerosDatos = await Promise.all(peticiones.map(getOneUser()))
+
+        const segundoDato = await getOneUser(TerceraId)
+        
+        const segundoDato = await getOneUser(CuartaId)
+
+
+    } catch (error) {
+
     }
 })
 
