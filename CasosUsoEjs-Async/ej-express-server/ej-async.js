@@ -62,7 +62,7 @@ async function getAllUsers() {
 
 
 // Funcion asincronica para obtener un user en funcion de la id
-async function getUser(id) {
+async function getOneUser(id) {
     return new Promise((resolve, reject) => {
         console.log('Iniciando tarea user retrieving')
 
@@ -99,8 +99,15 @@ app.get("/usuarios", async (req, res) => {
     }
 })
 
-
-
+// RUTA '/usuarios:id' para obtener la lista de todos los usuarios
+app.get("/usuarios/:id", async (req, res) => {
+    try {
+        const users = await getOneUser(req.params.id)
+        res.status(200).json(users)
+    } catch(error) {
+        res.status(500).json({error: `Error encontrando usuarios: ${error}`})
+    }
+})
 
 
 
