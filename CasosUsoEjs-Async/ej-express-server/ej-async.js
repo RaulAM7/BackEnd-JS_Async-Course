@@ -28,19 +28,13 @@ const app = express()
 // Middleware
 app.use(express.json()) // Para manejar JSON
 
-// Middleware para rutas no definidas ----- ¿Esto no habia que incluirlo antes de las rutas?
-
-app.use((req,res) => {
-    res.status(404).json({error: 'Ruta no encontrada'})
-})
-
 
 
 
 const baseDeDAtos = {
     usuarios:   {
-        1: {name: Ana, apellido: Mendoza},
-        2: {name: Carmen, apellido: Mendoza}
+        1: {name: 'Ana', apellido: 'Mendoza'},
+        2: {name: 'Carmen', apellido: 'Mendoza'}
     },
     posts: {
         1: [
@@ -91,7 +85,7 @@ async function getUser(id) {
 app.get("/info", (req, res) => {
     res.status(200).json(({
         mensaje: 'Servidor Express funcionando correctamente',
-        hora: new Date().toLocaleDateString()
+        hora: new Date().toLocaleString()
     }))
 })
 
@@ -111,11 +105,19 @@ app.get("/usuarios", async (req, res) => {
 
 
 
+/* Middleware para rutas no definidas 
+----- ¿Esto no habia que incluirlo antes de las rutas?
+----- NO, lo definimos como una ruta que afecte a todas las rutas pero al final para si no encuentra ninguna ruta salte esta
+*/
+app.use((req,res) => {
+    res.status(404).json({error: 'Ruta no encontrada'})
+})
+
 
 const PORT = 3000
 
 app.listen(PORT, () => {
-    console.log(`SERVIDOR INICIADO en puerto http://localhost: ${PORT}`)
+    console.log(`SERVIDOR INICIADO en puerto http://localhost:${PORT}`)
 })
 
 
